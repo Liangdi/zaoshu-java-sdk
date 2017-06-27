@@ -17,7 +17,7 @@
     String apiKey = "...";
 
     ZaoshuClient client = new ZaoshuClient(apiKey,secret);
-    InstanceList list = instanceApi.list();
+    InstanceList list = client.instance().list();
 
     list.getData().forEach(data -> {
          //log.info("instance:\n{}",gson.toJson(data));
