@@ -2,10 +2,8 @@ package me.liangdi.zaoshu.api;
 
 import lombok.extern.slf4j.Slf4j;
 import me.liangdi.zaoshu.Constant;
-import me.liangdi.zaoshu.model.Account;
 import me.liangdi.zaoshu.model.Status;
 import me.liangdi.zaoshu.util.HttpUtil;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 

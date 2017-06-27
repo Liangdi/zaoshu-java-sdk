@@ -82,7 +82,7 @@ public class Authorize {
                 .append(StringUtils.isEmpty(body)?"":body);
 
 
-        log.info("strToSign:\n{}",strToSign.toString());
+        log.debug("strToSign:\n{}",strToSign.toString());
         // sha256 签名
         byte[] hmacSha256 = HmacUtils.hmacSha256(secret, strToSign.toString());
 

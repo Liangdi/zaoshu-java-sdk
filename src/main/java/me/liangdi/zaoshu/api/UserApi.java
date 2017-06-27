@@ -1,5 +1,6 @@
 package me.liangdi.zaoshu.api;
 
+import me.liangdi.zaoshu.ApiException;
 import me.liangdi.zaoshu.Constant;
 import me.liangdi.zaoshu.model.Account;
 import me.liangdi.zaoshu.model.Wallet;
@@ -18,7 +19,7 @@ public class UserApi extends AbstractApi{
      * 获取帐号信息
      * @return
      */
-    Account account(){
+    Account account() throws ApiException {
         Account acc = new Account();
         String result = HttpUtil.get(keyPair,  accountUrl);
         if(StringUtils.isNotEmpty(result)) {
@@ -31,7 +32,7 @@ public class UserApi extends AbstractApi{
      * 获取钱包信息
      * @return
      */
-    public Wallet wallet(){
+    public Wallet wallet() throws ApiException {
         Wallet wallet = new Wallet();
         String result = HttpUtil.get(keyPair,  walletUrl);
         if(StringUtils.isNotEmpty(result)) {

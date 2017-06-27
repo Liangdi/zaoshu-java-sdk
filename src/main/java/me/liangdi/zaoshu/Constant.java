@@ -17,4 +17,10 @@ public class Constant {
     public static final String RATE_LIMIT_REMAINING_HEADER = "X-RateLimit-Remaining";
     public static final String RATE_LIMIT_RESET_HEADER = "X-RateLimit-Reset";
 
+    /**
+     * 授权错误
+     */
+    public static final int EXCEPTION_CODE_401 = 401;
+    public static final String EXCEPTION_MESSAGE_401 = "Unauthorized";
+
 }

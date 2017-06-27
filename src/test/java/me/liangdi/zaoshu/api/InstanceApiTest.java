@@ -1,6 +1,7 @@
 package me.liangdi.zaoshu.api;
 
 import lombok.extern.slf4j.Slf4j;
+import me.liangdi.zaoshu.ApiException;
 import me.liangdi.zaoshu.model.ApiResult;
 import me.liangdi.zaoshu.model.Instance;
 import me.liangdi.zaoshu.model.InstanceList;
@@ -27,7 +28,7 @@ public class InstanceApiTest extends ApiBase{
 
 
     @Test
-    public void testListInstances() {
+    public void testListInstances() throws ApiException {
         InstanceList list = instanceApi.list();
 
         list.getData().forEach(data -> {
@@ -36,7 +37,7 @@ public class InstanceApiTest extends ApiBase{
     }
 
     @Test
-    public void testListTask(){
+    public void testListTask() throws ApiException {
         String instanceId = "1ebd240d26a14db4a3acae5e287be5ac";
         TaskList list = instanceApi.taskList(instanceId);
         list.getData().forEach(data -> {
@@ -45,7 +46,7 @@ public class InstanceApiTest extends ApiBase{
     }
 
     @Test
-    public void testRunInstance(){
+    public void testRunInstance() throws ApiException {
         String instanceId = "d4351194a41f4526bbada92eff75e743";
 
         ApiResult apiResult = instanceApi.run(instanceId, null, null);
@@ -54,7 +55,7 @@ public class InstanceApiTest extends ApiBase{
     }
 
     @Test
-    public void testEditInstance(){
+    public void testEditInstance() throws ApiException {
         String instanceId = "d4351194a41f4526bbada92eff75e743";
         String title = "modify by api";
         ApiResult apiResult = instanceApi.edit(instanceId, title, null);

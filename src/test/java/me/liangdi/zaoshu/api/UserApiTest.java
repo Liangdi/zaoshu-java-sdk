@@ -3,6 +3,7 @@ package me.liangdi.zaoshu.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
+import me.liangdi.zaoshu.ApiException;
 import me.liangdi.zaoshu.model.Account;
 import me.liangdi.zaoshu.model.Wallet;
 import org.junit.Before;
@@ -26,14 +27,19 @@ public class UserApiTest extends ApiBase{
     }
 
     @Test
-    public void testUserAccount(){
-        Account account = userApi.account();
+    public void testUserAccount() {
+        Account account = null;
+        try {
+            account = userApi.account();
+        } catch (ApiException e) {
+            log.info("业务逻辑异常:{},{}",e.getCode(),e.getMessage());
+        }
         log.info("account:\n{}",gson.toJson(account));
 
     }
 
     @Test
-    public void testUserWallet(){
+    public void testUserWallet() throws ApiException {
         Wallet wallet = userApi.wallet();
         log.info("wallet:\n{}",wallet);
     }

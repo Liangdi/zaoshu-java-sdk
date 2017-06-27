@@ -1,5 +1,6 @@
 package me.liangdi.zaoshu.api;
 
+import me.liangdi.zaoshu.ApiException;
 import me.liangdi.zaoshu.Constant;
 import me.liangdi.zaoshu.model.*;
 import me.liangdi.zaoshu.util.HttpUtil;
@@ -27,7 +28,7 @@ public class InstanceApi extends AbstractApi{
      * 实例列表
      * @return
      */
-    public InstanceList list(){
+    public InstanceList list() throws ApiException {
         InstanceList list = new InstanceList();
         String result = HttpUtil.get(keyPair,  instanceListUrl);
         if(StringUtils.isNotEmpty(result)) {
@@ -41,7 +42,7 @@ public class InstanceApi extends AbstractApi{
      * @param id
      * @return
      */
-    public Instance get(String id){
+    public Instance get(String id) throws ApiException {
         Instance instance = new Instance();
         String result = HttpUtil.get(keyPair,  instanceUrl.replaceAll(":instance_id",id));
         if(StringUtils.isNotEmpty(result)) {
@@ -55,7 +56,7 @@ public class InstanceApi extends AbstractApi{
      * @param instanceId
      * @return
      */
-    public TaskList taskList(String instanceId){
+    public TaskList taskList(String instanceId) throws ApiException {
         TaskList taskList = new TaskList();
         String result = HttpUtil.get(keyPair,  taskListUrl.replaceAll(":instance_id",instanceId));
         if(StringUtils.isNotEmpty(result)) {
@@ -70,7 +71,7 @@ public class InstanceApi extends AbstractApi{
      * @param taskId
      * @return
      */
-    public Task getTask(String instanceId, String taskId) {
+    public Task getTask(String instanceId, String taskId) throws ApiException {
         Task task = new Task();
         String result = HttpUtil.get(keyPair,
                 taskUrl.replaceAll(":instance_id",instanceId)
@@ -86,7 +87,7 @@ public class InstanceApi extends AbstractApi{
      * @param id
      * @return
      */
-    public ApiResult run(String id,RunConfig config,String notifyUri){
+    public ApiResult run(String id,RunConfig config,String notifyUri) throws ApiException {
 
 
         Map<String,Object> body = new HashMap<>();
@@ -109,7 +110,7 @@ public class InstanceApi extends AbstractApi{
      * @param notifyUri
      * @return
      */
-    public ApiResult edit(String id,String title,String notifyUri){
+    public ApiResult edit(String id,String title,String notifyUri) throws ApiException {
         Map<String,Object> body = new HashMap<>();
         body.put("title",title);
         //todo 参数 notifyUri 实现

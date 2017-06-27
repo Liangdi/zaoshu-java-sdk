@@ -1,21 +1,24 @@
 package me.liangdi.zaoshu.util;
 
 import lombok.extern.slf4j.Slf4j;
+import me.liangdi.zaoshu.ApiException;
 import me.liangdi.zaoshu.Constant;
 import me.liangdi.zaoshu.api.KeyPair;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static me.liangdi.zaoshu.Constant.AUTH_HEADER;
 import static me.liangdi.zaoshu.Constant.AUTH_PRE;
@@ -33,7 +36,7 @@ public class HttpUtil {
      * @param url
      * @return
      */
-    public static String get(KeyPair keyPair,String url){
+    public static String get(KeyPair keyPair,String url) throws ApiException {
         return get(keyPair,url,null);
     }
     /**
@@ -42,7 +45,7 @@ public class HttpUtil {
      * @param query
      * @return
      */
-    public static String get(KeyPair keyPair, String url, Map<String,String> query) {
+    public static String get(KeyPair keyPair, String url, Map<String,String> query) throws ApiException {
         URI uri = buildUri(url,query);
         if(uri == null) {
             return "";
@@ -61,7 +64,7 @@ public class HttpUtil {
      * @param query
      * @return
      */
-    public static String patch(KeyPair keyPair,String url,Map<String,String> query,String body){
+    public static String patch(KeyPair keyPair,String url,Map<String,String> query,String body) throws ApiException {
         URI uri = buildUri(url,query);
         if(uri == null) {
             return "";
@@ -75,7 +78,7 @@ public class HttpUtil {
         return request(keyPair,request,Constant.METHOD_PATCH,query,body);
     }
 
-    public static String post(KeyPair keyPair,String url,Map<String,String> query,String body){
+    public static String post(KeyPair keyPair,String url,Map<String,String> query,String body) throws ApiException {
         URI uri = buildUri(url,query);
         if(uri == null) {
             return "";
@@ -84,7 +87,8 @@ public class HttpUtil {
         log.info("post url:{}",url);
 
         Request request = Request.Post(url);
-        request.body(new StringEntity(body,"UTF-8"));
+        request.bodyString(body, ContentType.parse(Constant.CONTENT_TYPE));
+        //request.body(new StringEntity(body,"UTF-8"));
 
         return request(keyPair,request,Constant.METHOD_POST,query,body);
     }
@@ -129,24 +133,29 @@ public class HttpUtil {
      * @param body
      * @return
      */
-    private static String request(KeyPair keyPair, Request request,String method, Map<String,String> query, String body) {
+    private static String request(KeyPair keyPair, Request request,String method, Map<String,String> query, String body) throws ApiException {
         String result = "";
 
         try {
 
             configRequest(request,method,keyPair,query,body);
-            Response resp = request
-                    .execute();
+            HttpResponse resp = request
+                    .execute()
+                    .returnResponse();
 
-            //int code = resp.returnResponse().getStatusLine().getStatusCode();
-            // todo 处理 status code 相关业务逻辑
 
-            result = resp
-                    .returnContent()
-                    .asString(Charset.forName("UTF-8"));
+            int code = resp.getStatusLine().getStatusCode();
+
+            if(code == Constant.EXCEPTION_CODE_401) {
+                throw new ApiException(Constant.EXCEPTION_MESSAGE_401,Constant.EXCEPTION_CODE_401);
+            }
+
+            result =  EntityUtils.toString(resp.getEntity(),"UTF-8");
         } catch (IOException e) {
             log.error("http exception:{}",e.getMessage());
             e.printStackTrace();
+
+            result = "{}";
         }
         return result;
     }
@@ -164,7 +173,7 @@ public class HttpUtil {
 
         String sign = Authorize.signJsonRequest(keyPair.getSecret(), method, gmtDate, query, body);
         Header authorHeader = authorHeader(keyPair.getApiKey(), sign);
-        log.info("authorHeader:{}",authorHeader);
+        log.debug("authorHeader:{}",authorHeader);
         request.addHeader(new BasicHeader("Content-Type", Constant.CONTENT_TYPE))
                 .addHeader(new BasicHeader("Date", gmtDate))
                 .addHeader(authorHeader);

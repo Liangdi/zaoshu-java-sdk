@@ -11,7 +11,7 @@ import org.junit.Test;
 public class ZaoshuClientTest {
 
     @Test
-    public void testClient(){
+    public void testClient() throws ApiException {
         String secret = "...";
         String apiKey = "...";
 
