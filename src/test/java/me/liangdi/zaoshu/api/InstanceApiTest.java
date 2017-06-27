@@ -1,8 +1,11 @@
 package me.liangdi.zaoshu.api;
 
 import lombok.extern.slf4j.Slf4j;
+import me.liangdi.zaoshu.model.ApiResult;
+import me.liangdi.zaoshu.model.Instance;
 import me.liangdi.zaoshu.model.InstanceList;
 import me.liangdi.zaoshu.model.TaskList;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,5 +42,29 @@ public class InstanceApiTest extends ApiBase{
         list.getData().forEach(data -> {
             log.info("task:\n{}",gson.toJson(data));
         });
+    }
+
+    @Test
+    public void testRunInstance(){
+        String instanceId = "d4351194a41f4526bbada92eff75e743";
+
+        ApiResult apiResult = instanceApi.run(instanceId, null, null);
+
+        log.info("run result:\n{}",gson.toJson(apiResult));
+    }
+
+    @Test
+    public void testEditInstance(){
+        String instanceId = "d4351194a41f4526bbada92eff75e743";
+        String title = "modify by api";
+        ApiResult apiResult = instanceApi.edit(instanceId, title, null);
+
+        log.info("run result:\n{}",gson.toJson(apiResult));
+
+        Instance instance = instanceApi.get(instanceId);
+
+        log.info("new instance:\n{}",gson.toJson(instance));
+        // todo 确定问题
+        //Assert.assertEquals(instance.getData().getTitle(),title);
     }
 }

@@ -5,6 +5,9 @@ import me.liangdi.zaoshu.model.*;
 import me.liangdi.zaoshu.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * doc https://github.com/zaoshu/openapi/blob/master/v2/zh-CN/instance.md
  * Created by liangdi on 6/27/17.
@@ -84,8 +87,19 @@ public class InstanceApi extends AbstractApi{
      * @return
      */
     public ApiResult run(String id,RunConfig config,String notifyUri){
-        //todo
-        throw new UnsupportedOperationException();
+
+
+        Map<String,Object> body = new HashMap<>();
+        //todo 参数实现
+
+        ApiResult result = new ApiResult();
+
+        String requestResult = HttpUtil.post(keyPair,instanceUrl.replaceAll(":instance_id",id),null,gson.toJson(body));
+        if(StringUtils.isNotEmpty(requestResult)) {
+            result = gson.fromJson(requestResult,ApiResult.class);
+        }
+
+        return  result;
     }
 
     /**
@@ -96,8 +110,18 @@ public class InstanceApi extends AbstractApi{
      * @return
      */
     public ApiResult edit(String id,String title,String notifyUri){
-        //todo
-        throw new UnsupportedOperationException();
+        Map<String,Object> body = new HashMap<>();
+        body.put("title",title);
+        //todo 参数 notifyUri 实现
+
+        ApiResult result = new ApiResult();
+
+        String requestResult = HttpUtil.patch(keyPair,instanceUrl.replaceAll(":instance_id",id),null,gson.toJson(body));
+        if(StringUtils.isNotEmpty(requestResult)) {
+            result = gson.fromJson(requestResult,ApiResult.class);
+        }
+
+        return  result;
     }
 
 }
