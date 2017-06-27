@@ -9,6 +9,6 @@ public class Constant {
     public static final String METHOD_POST = "POST";
 
     public static final String API_URL = "https://openapi.zaoshu.io/v2";
-    public static final String AUTH_PRE = "zaoshu ";
+    public static final String AUTH_PRE = "ZAOSHU ";
     public static final String AUTH_HEADER = "Authorization";
 }
