@@ -82,11 +82,11 @@ public class HttpUtil {
 
     /**
      * 构建 API 认证相关 header
-     * @param secret
+     * @param apikey
      * @param sign
      * @return
      */
-    private static Header authorHeader(String secret,String sign){
-        return  new BasicHeader(AUTH_HEADER,AUTH_PRE + secret + ":" + sign);
+    private static Header authorHeader(String apikey,String sign){
+        return  new BasicHeader(AUTH_HEADER,AUTH_PRE + apikey + ":" + sign);
     }
 }

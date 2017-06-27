@@ -2,6 +2,7 @@ package me.liangdi.zaoshu.api;
 
 import me.liangdi.zaoshu.Constant;
 import me.liangdi.zaoshu.model.Account;
+import me.liangdi.zaoshu.model.Wallet;
 import me.liangdi.zaoshu.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class UserApi extends AbstractApi{
     private String accountUrl = Constant.API_URL +  "/user/account";
+    private String walletUrl = Constant.API_URL +  "/user/wallet";
 
     /**
      * 获取帐号信息
@@ -23,5 +25,19 @@ public class UserApi extends AbstractApi{
             acc = gson.fromJson(result,Account.class);
         }
         return acc;
+    }
+
+    /**
+     * 获取钱包信息
+     * @return
+     */
+    public Wallet wallet(){
+        Wallet wallet = new Wallet();
+        String result = HttpUtil.get(keyPair,  walletUrl);
+        if(StringUtils.isNotEmpty(result)) {
+            wallet = gson.fromJson(result,Wallet.class);
+        }
+
+        return wallet;
     }
 }
