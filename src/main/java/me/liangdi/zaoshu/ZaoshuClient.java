@@ -10,12 +10,8 @@ import me.liangdi.zaoshu.api.UserApi;
  */
 public class ZaoshuClient {
     private KeyPair keyPair;
-    private String apiKey;
-    private String secret;
     private UserApi user = null;
     private InstanceApi instance = null;
-
-
 
     public ZaoshuClient(String apiKey,String secret) {
        this.keyPair = new KeyPair(apiKey, secret);

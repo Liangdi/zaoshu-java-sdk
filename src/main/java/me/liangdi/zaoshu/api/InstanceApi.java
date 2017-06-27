@@ -1,5 +1,6 @@
 package me.liangdi.zaoshu.api;
 
+import me.liangdi.zaoshu.Constant;
 import me.liangdi.zaoshu.model.*;
 import me.liangdi.zaoshu.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -10,14 +11,14 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class InstanceApi extends AbstractApi{
     // GET
-    private String instanceListUrl = "/instances";
+    private String instanceListUrl = Constant.API_URL +  "/instances";
 
     // GET-> :id    PATCH-> :id  edit instance  POST-> :id  run instance
-    private String instanceUrl = "/instance/:instance_id";
+    private String instanceUrl = Constant.API_URL + "/instance/:instance_id";
 
-    private String taskListUrl = "/instance/:instance_id/tasks";
+    private String taskListUrl =Constant.API_URL +  "/instance/:instance_id/tasks";
 
-    private String taskUrl = "/instance/:instance_id/task:task_id";
+    private String taskUrl = Constant.API_URL + "/instance/:instance_id/task:task_id";
 
     /**
      * 实例列表
