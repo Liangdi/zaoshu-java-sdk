@@ -2,6 +2,7 @@ package me.liangdi.zaoshu;
 
 import me.liangdi.zaoshu.api.InstanceApi;
 import me.liangdi.zaoshu.api.KeyPair;
+import me.liangdi.zaoshu.api.SystemApi;
 import me.liangdi.zaoshu.api.UserApi;
 
 /**
@@ -12,6 +13,7 @@ public class ZaoshuClient {
     private KeyPair keyPair;
     private UserApi user = null;
     private InstanceApi instance = null;
+    private SystemApi system = null;
 
     public ZaoshuClient(String apiKey,String secret) {
        this.keyPair = new KeyPair(apiKey, secret);
@@ -24,7 +26,7 @@ public class ZaoshuClient {
      * 获取用户操作 API 接口
      * @return
      */
-    public UserApi user(){
+    public synchronized UserApi user(){
         if(user == null) {
             user = new UserApi();
             user.init(keyPair);
@@ -37,12 +39,25 @@ public class ZaoshuClient {
      * 实例相关 API 接口
      * @return
      */
-    public InstanceApi instance(){
+    public synchronized InstanceApi instance(){
         if(instance == null){
             instance = new InstanceApi();
             instance.init(keyPair);
         }
 
         return instance;
+    }
+
+    /**
+     * 系统相关 API 接口
+     * @return
+     */
+    public synchronized SystemApi system(){
+        if(system == null){
+            system = new SystemApi();
+            system.init(keyPair);
+        }
+
+        return system;
     }
 }

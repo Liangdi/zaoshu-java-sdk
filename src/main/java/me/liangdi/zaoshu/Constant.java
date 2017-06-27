@@ -13,5 +13,8 @@ public class Constant {
     public static final String AUTH_PRE = "ZAOSHU ";
     public static final String AUTH_HEADER = "Authorization";
     public static final String EVENT_HEADER = "x-zaoshu-event";
+    public static final String RATE_LIMIT_HEADER = "X-RateLimit-Limit";
+    public static final String RATE_LIMIT_REMAINING_HEADER = "X-RateLimit-Remaining";
+    public static final String RATE_LIMIT_RESET_HEADER = "X-RateLimit-Reset";
 
 }

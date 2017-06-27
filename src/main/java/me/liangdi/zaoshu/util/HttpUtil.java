@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.liangdi.zaoshu.Constant;
 import me.liangdi.zaoshu.api.KeyPair;
 import org.apache.http.Header;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
 import org.apache.http.client.utils.URIBuilder;
@@ -14,8 +15,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 import static me.liangdi.zaoshu.Constant.AUTH_HEADER;
 import static me.liangdi.zaoshu.Constant.AUTH_PRE;
@@ -87,6 +87,36 @@ public class HttpUtil {
         request.body(new StringEntity(body,"UTF-8"));
 
         return request(keyPair,request,Constant.METHOD_POST,query,body);
+    }
+
+    public static Map<String,String> headers(KeyPair keyPair,String url) {
+        Map<String,String> headerMap = new HashMap<>();
+        URI uri = buildUri(url,null);
+        if(uri == null) {
+            return headerMap;
+        }
+        url = uri.toString();
+        log.info("get url:{}",url);
+
+        Request request = Request.Get(url);
+
+        configRequest(request,Constant.METHOD_GET,keyPair,null,"");
+
+        try {
+            HttpResponse httpResponse = request.execute()
+                    .returnResponse();
+            Header[] allHeaders = httpResponse.getAllHeaders();
+
+            for (Header header :
+                    allHeaders) {
+                headerMap.put(header.getName(),header.getValue());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return headerMap;
     }
 
 
