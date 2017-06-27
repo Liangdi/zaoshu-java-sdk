@@ -11,4 +11,6 @@ public class Constant {
     public static final String API_URL = "https://openapi.zaoshu.io/v2";
     public static final String AUTH_PRE = "ZAOSHU ";
     public static final String AUTH_HEADER = "Authorization";
+    public static final String EVENT_HEADER = "x-zaoshu-event";
+
 }
