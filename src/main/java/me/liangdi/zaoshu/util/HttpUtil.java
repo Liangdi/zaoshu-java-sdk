@@ -44,7 +44,6 @@ public class HttpUtil {
         String result = "";
 
 
-
         Date now = new Date();
         String gmtDate = Authorize.getDate(now);
 
@@ -55,10 +54,11 @@ public class HttpUtil {
             if( query != null && !query.isEmpty()) {
                 query.forEach(uriBuilder::addParameter);
             }
-
+            url = uriBuilder.build().toString();
+            log.info("request url:{}",url);
             Header authorHeader = authorHeader(keyPair.getApiKey(), sign);
             log.info("authorHeader:{}",authorHeader);
-            Response resp = Request.Get(uriBuilder.build())
+            Response resp = Request.Get(url)
                     .addHeader(new BasicHeader("Content-Type", Constant.CONTENT_TYPE))
                     .addHeader(new BasicHeader("Date", gmtDate))
                     .addHeader(authorHeader)
