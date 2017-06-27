@@ -1,4 +1,4 @@
-package me.liandi.zaoshu;
+package me.liangdi.zaoshu;
 
 /**
  * Created by liangdi on 6/27/17.

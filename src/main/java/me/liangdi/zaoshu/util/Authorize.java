@@ -43,13 +43,16 @@ public class Authorize {
      */
     public static String signJsonRequest(String secret,String method,String date,Map<String,String> query,String body){
         final StringBuilder sortedQuery = new StringBuilder();
-        TreeMap<String,String> tree= new TreeMap<>(query);
-        tree.forEach((k,v) -> {
-            sortedQuery.append(k)
-                    .append("=")
-                    .append(v)
-                    .append('\n');
-        });
+        if(query != null && !query.isEmpty()) {
+            TreeMap<String,String> tree= new TreeMap<>(query);
+            tree.forEach((k,v) -> {
+                sortedQuery.append(k)
+                        .append("=")
+                        .append(v)
+                        .append('\n');
+            });
+        }
+
         return sign(secret,method, Constant.CONTENT_TYPE,date,sortedQuery.toString(),body);
     }
 
@@ -75,8 +78,8 @@ public class Authorize {
                 .append('\n')
                 .append(date)
                 .append('\n')
-                .append(StringUtils.isEmpty(sortedQuery)?"":sortedQuery)
-                .append(StringUtils.isEmpty(body)?'\n':body);
+                .append(StringUtils.isEmpty(sortedQuery)?'\n':sortedQuery)
+                .append(StringUtils.isEmpty(body)?"":body);
 
 
         log.info("strToSign:\n{}",strToSign.toString());
