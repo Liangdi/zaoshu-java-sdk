@@ -6,6 +6,7 @@ import me.liangdi.zaoshu.model.*;
 import me.liangdi.zaoshu.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,9 @@ public class InstanceApi extends AbstractApi{
 
     private String taskListUrl =Constant.API_URL +  "/instance/:instance_id/tasks";
 
-    private String taskUrl = Constant.API_URL + "/instance/:instance_id/task:task_id";
+    private String taskUrl = Constant.API_URL + "/instance/:instance_id/:task_id";
+    // download url   params:  contentType=json|xml|csv
+    private String downloadUrl = Constant.API_URL + "/download/instance/:instance_id/:task_id";
 
     /**
      * 实例列表
@@ -123,6 +126,37 @@ public class InstanceApi extends AbstractApi{
         }
 
         return  result;
+    }
+
+    /**
+     * 下载 JSON 数据
+     * @param instanceId
+     * @param taskId
+     * @return
+     * @throws ApiException
+     */
+    public String downloadJsonData(String instanceId,String taskId) throws ApiException {
+
+        Map<String,String> query = new HashMap<>();
+        query.put("contentType","json");
+
+        String result = HttpUtil.get(keyPair,
+                downloadUrl.replaceAll(":instance_id",instanceId)
+                        .replaceAll(":task_id",taskId),query);
+
+        return result;
+    }
+
+    /**
+     * 下载数据，获得 InputStream 对象
+     * @param instanceId
+     * @param taskId
+     * @param contentType contentType可选值: csv|xls|json|xml
+     * @return
+     */
+    public InputStream download(String instanceId, String taskId,String contentType){
+        // todo
+        throw new UnsupportedOperationException();
     }
 
 }
