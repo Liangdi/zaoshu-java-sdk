@@ -66,7 +66,7 @@ public class InstanceApiTest extends ApiBase{
 
         log.info("new instance:\n{}",gson.toJson(instance));
         // todo 确定问题
-        //Assert.assertEquals(instance.getData().getTitle(),title);
+        Assert.assertEquals(instance.getData().getTitle(),title);
     }
 
     @Test
