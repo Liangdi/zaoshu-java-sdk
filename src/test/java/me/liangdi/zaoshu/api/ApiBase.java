@@ -7,8 +7,8 @@ import com.google.gson.GsonBuilder;
  * Created by liangdi on 6/27/17.
  */
 public class ApiBase {
-    protected String secret = "...";
-    protected String apiKey = "...";
-    protected Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    String secret = "";
+    String apiKey = "";
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 }

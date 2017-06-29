@@ -68,4 +68,15 @@ public class InstanceApiTest extends ApiBase{
         // todo 确定问题
         //Assert.assertEquals(instance.getData().getTitle(),title);
     }
+
+    @Test
+    public void testDownloadJsonData() throws ApiException {
+        //appInstanceId=d4351194a41f4526bbada92eff75e743&taskId=e31ccf9a07e143dbbeae61ef7c5e1dcd
+        String instanceId = "d4351194a41f4526bbada92eff75e743";
+        String taskId = "e31ccf9a07e143dbbeae61ef7c5e1dcd";
+
+        String json = instanceApi.downloadJsonData(instanceId, taskId);
+
+        log.info("json:\n{}",json);
+    }
 }
