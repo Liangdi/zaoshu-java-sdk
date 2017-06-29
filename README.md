@@ -2,6 +2,36 @@
 造数(zaoshu.io) api java sdk , api 文档 https://github.com/zaoshu/openapi
 
 ### 使用方法
+* 源吗构建
+```
+    mvn -Dmaven.test.skip=true package
+```
+* 下载 jar
+```
+    https://github.com/Liangdi/zaoshu-java-sdk/releases
+```
+* 本地 jar 包依赖
+```
+<dependency>
+  <groupId>me.liangdi</groupId>
+  <artifactId>zaoshu-sdk</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <type>jar</type>
+  <scope>system</scope>
+  <systemPath>${basedir}/path/to/jar</systemPath>
+</dependency>
+```
+
+* 中央仓库依赖 (未完成)
+```
+<dependency>
+  <groupId>me.liangdi</groupId>
+  <artifactId>zaoshu-sdk</artifactId>
+  <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+### 调用接口
 
 * 钱包
 ```
