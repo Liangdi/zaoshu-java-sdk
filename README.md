@@ -13,7 +13,7 @@
 * 本地 jar 包依赖
 ```
 <dependency>
-  <groupId>me.liangdi</groupId>
+  <groupId>com.github.liangdi</groupId>
   <artifactId>zaoshu-sdk</artifactId>
   <version>1.0-SNAPSHOT</version>
   <type>jar</type>
@@ -25,7 +25,7 @@
 * 中央仓库依赖 (未完成)
 ```
 <dependency>
-  <groupId>me.liangdi</groupId>
+  <groupId>com.github.liangdi</groupId>
   <artifactId>zaoshu-sdk</artifactId>
   <version>1.0-SNAPSHOT</version>
 </dependency>
