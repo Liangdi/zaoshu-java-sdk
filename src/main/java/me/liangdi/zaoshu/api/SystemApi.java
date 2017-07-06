@@ -13,7 +13,7 @@ import java.util.Map;
  */
 @Slf4j
 public class SystemApi extends AbstractApi{
-    private String accountUrl = Constant.API_URL +  "/user/account";
+    private String statusUrl = Constant.API_URL +  "/user/";
 
     /**
      * 获取 API 限制状态
@@ -23,7 +23,7 @@ public class SystemApi extends AbstractApi{
     public Status status() {
         Status status = new Status();
 
-        Map<String, String> headers = HttpUtil.headers(keyPair,  accountUrl);
+        Map<String, String> headers = HttpUtil.headers(keyPair, statusUrl);
         log.info("headers:{}",headers);
 
         status.setRateLimit(Integer.parseInt(headers.getOrDefault(Constant.RATE_LIMIT_HEADER,"0")));
