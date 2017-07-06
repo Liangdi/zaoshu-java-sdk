@@ -2,10 +2,7 @@ package me.liangdi.zaoshu.api;
 
 import lombok.extern.slf4j.Slf4j;
 import me.liangdi.zaoshu.ApiException;
-import me.liangdi.zaoshu.model.ApiResult;
-import me.liangdi.zaoshu.model.Instance;
-import me.liangdi.zaoshu.model.InstanceList;
-import me.liangdi.zaoshu.model.TaskList;
+import me.liangdi.zaoshu.model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +31,13 @@ public class InstanceApiTest extends ApiBase{
         list.getData().forEach(data -> {
             log.info("instance:\n{}",gson.toJson(data));
         });
+    }
+
+    @Test
+    public void testGetSchema() throws ApiException {
+        String instanceId = "1ebd240d26a14db4a3acae5e287be5ac";
+        Schema schema = instanceApi.schema(instanceId);
+        log.info("schema:{}",schema);
     }
 
     @Test

@@ -16,16 +16,18 @@ import java.util.Map;
  */
 public class InstanceApi extends AbstractApi{
     // GET
-    private String instanceListUrl = Constant.API_URL +  "/instances";
+    private static String instanceListUrl = Constant.API_URL +  "/instances";
 
     // GET-> :id    PATCH-> :id  edit instance  POST-> :id  run instance
-    private String instanceUrl = Constant.API_URL + "/instance/:instance_id";
+    private static String instanceUrl = Constant.API_URL + "/instance/:instance_id";
 
-    private String taskListUrl =Constant.API_URL +  "/instance/:instance_id/tasks";
+    private static String taskListUrl =Constant.API_URL +  "/instance/:instance_id/tasks";
 
-    private String taskUrl = Constant.API_URL + "/instance/:instance_id/:task_id";
+    private static String taskUrl = Constant.API_URL + "/instance/:instance_id/:task_id";
     // download url   params:  contentType=json|xml|csv
-    private String downloadUrl = Constant.API_URL + "/download/instance/:instance_id/:task_id";
+    private static String downloadUrl = Constant.API_URL + "/download/instance/:instance_id/:task_id";
+    //GET /instance/:instance_id/schema
+    private static String schemaUrl = Constant.API_URL + "/instance/:instance_id/schema";
 
     /**
      * 实例列表
@@ -52,6 +54,21 @@ public class InstanceApi extends AbstractApi{
             instance = gson.fromJson(result,Instance.class);
         }
         return instance;
+    }
+
+    /**
+     * 获取单个实例数据格式。
+     * @param id
+     * @return
+     * @throws ApiException
+     */
+    public Schema schema(String id) throws ApiException {
+        Schema schema = new Schema();
+        String result = HttpUtil.get(keyPair,  schemaUrl.replaceAll(":instance_id",id));
+        if(StringUtils.isNotEmpty(result)) {
+            schema = gson.fromJson(result,Schema.class);
+        }
+        return schema;
     }
 
     /**
