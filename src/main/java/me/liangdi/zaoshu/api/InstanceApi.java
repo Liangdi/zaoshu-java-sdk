@@ -25,7 +25,7 @@ public class InstanceApi extends AbstractApi{
 
     private static String taskUrl = Constant.API_URL + "/instance/:instance_id/:task_id";
     // download url   params:  contentType=json|xml|csv
-    private static String downloadUrl = Constant.API_URL + "/download/instance/:instance_id/:task_id";
+    private static String downloadUrl = Constant.API_URL + "/instance/:instance_id/task/:task_id/result/file";
     //GET /instance/:instance_id/schema
     private static String schemaUrl = Constant.API_URL + "/instance/:instance_id/schema";
 
